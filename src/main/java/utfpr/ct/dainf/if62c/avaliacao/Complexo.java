@@ -5,7 +5,7 @@ package utfpr.ct.dainf.if62c.avaliacao;
  * DAINF - Departamento Acadêmico de Informática
  * IF62C - Fundamentos de Programação 2
  * 
- * Primeira avaliação parcial 2014/2.
+ * Primeira avaliação parcial 2015/1.
  * @author 
  */
 public class Complexo {
@@ -16,31 +16,76 @@ public class Complexo {
     }
 
     public Complexo(double real, double img) {
-        // completar a implementação
+        this.real=real;
+        this.img=img;
     }
 
-    // implementar getReal()
+    public double getReal() {
+        return real;
+    }
 
-    // implementar getImg()
+    public double getImg() {
+        return img;
+    }
 
     public Complexo soma(Complexo c) {
         return new Complexo(real + c.real, img + c.img);
     }
     
-    // implementar sub(Complexo)
+    public Complexo sub(Complexo c) {
+        return new Complexo(real - c.real, img - c.img);
+    }
 
-    // implementar prod(double)
+    public Complexo prod(double r) {
+        return new Complexo(real * r, img * r);
+    }
 
-    // implementar prod(Complexo)
+    public Complexo prod(Complexo c) {
+        return new Complexo((real * c.real) - (img * c.img), (img * c.real) + (real * c.img));
+    }
     
-    // implementar div(Complexo)
+    public Complexo div(Complexo c) {
+        return new Complexo(((real * c.real) + (img * c.img)) / (Math.pow(c.real,2) + Math.pow(c.img,2)), ((img * c.real) - (real * c.img)) / (Math.pow(c.real,2) + Math.pow(c.img,2)));
+    }
     
-    // implementar sqrt()
     public Complexo[] sqrt() {
+        double ro = Math.sqrt(Math.sqrt(Math.pow(real, 2) + Math.pow(img, 2))); 
+        double fi1 =0; //verificar se der zica
+        double fi2 =0; //verificar se der zica
+        if(real==0) {
+            if(img==0) {
+                fi1 = 0;
+                fi2 = Math.PI;
+            }
+            if(img>0) {
+                fi1 = Math.PI/4;
+                fi2 = (Math.PI/4) + Math.PI;
+            }
+            if(img<0) {
+                fi1 = (3 * (Math.PI/4));
+                fi2 = (3 * (Math.PI/4)) + Math.PI;
+            }
+        } else {
+            if(real>0) {
+                fi1 = (Math.atan(img/real)/2);
+                fi2 = (Math.atan(img/real)/2) + Math.PI;
+            }
+            if(real<0) {
+                fi1 = ((Math.atan(img/real) + Math.PI)/2);
+                fi2 = ((Math.atan(img/real) + Math.PI)/2) + Math.PI;
+            }
+        }
+        Complexo raiz1 = new Complexo(ro * (Math.cos(fi1)), ro*(Math.sin(fi1)));
+        Complexo raiz2 = new Complexo(ro * (Math.cos(fi2)), ro*(Math.sin(fi2)));
+        Complexo[] vetor = {raiz1, raiz2};
+        return vetor;
+    }
+    
+   // public Complexo[] sqrt() {
         // completar implementação
         // retornar o vetor contendo as raízes
-        return null;
-    }
+   //     return null;
+   // }
 
     @Override
     public int hashCode() {
